@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اكتشف شخصيتك في فرز 4026</title>
+<meta name="description" content="أجب عن أربعة أسئلة سريعة واكتشف أي شخصية تشبهك ضمن مجموعة الأصدقاء، وشارك النتيجة معهم.">
+<meta property="og:title" content="اكتشف شخصيتك في فرز 4026">
+<meta property="og:description" content="أربعة أسئلة فقط تكشف من أنت فعلاً وسط أصدقائك.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#162a3a;
+    --navy-700:#27465f;
+    --navy-200:#c6dceb;
+    --maroon-700:#860000;
+    --maroon-500:#a83333;
+    --maroon-100:#f6dede;
+    --ice-100:#ebf8ff;
+    --ice-050:#f7fcff;
+    --white:#ffffff;
+    --muted:#5c7488;
+    --shadow-deep: 0 22px 50px -22px rgba(22,42,58,.35);
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(134,0,0,.07), transparent 55%),
+      radial-gradient(ellipse at 90% 100%, rgba(22,42,58,.08), transparent 50%),
+      var(--ice-100);
+    color:var(--navy-900);
+    font-family:'Cairo', sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .stage{ width:100%; max-width:600px; }
+
+  .brandmark{
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    margin-bottom:16px; color:var(--muted);
+    letter-spacing:.12em; font-size:13px;
+  }
+  .brandmark svg{ width:18px; height:18px; color:var(--maroon-700); }
+
+  .panel{
+    background:var(--white);
+    border:1px solid var(--navy-200);
+    border-radius:18px;
+    box-shadow:var(--shadow-deep);
+    padding:clamp(28px, 5vw, 50px);
+    position:relative;
+  }
+  .panel::before{
+    content:"";
+    position:absolute; inset:7px;
+    border:1px solid var(--ice-100);
+    border-radius:12px;
+    pointer-events:none;
+  }
+
+  .screen{ display:none; animation:rise .5s var(--ease); }
+  .screen.active{ display:block; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+  h1.title{
+    font-family:'Aref Ruqaa', serif;
+    font-weight:700;
+    font-size:clamp(30px, 5.6vw, 42px);
+    text-align:center;
+    margin:0 0 6px;
+    color:var(--navy-900);
+  }
+  .eyebrow{
+    text-align:center; color:var(--maroon-700);
+    font-size:13px; letter-spacing:.16em; margin-bottom:16px; font-weight:700;
+  }
+  .lede{
+    text-align:center; color:var(--muted);
+    line-height:1.9; font-size:15.5px;
+    max-width:44ch; margin:0 auto 28px;
+  }
+
+  .divider{
+    width:60px; height:2px; margin:0 auto 24px;
+    background:linear-gradient(90deg, transparent, var(--maroon-700), transparent);
+  }
+
+  .btn{
+    appearance:none; border:none; cursor:pointer;
+    font-family:'Cairo', sans-serif;
+    font-weight:700; font-size:16px;
+    border-radius:11px; padding:15px 26px; width:100%;
+    transition:transform .2s var(--ease), box-shadow .2s var(--ease), background .2s, border-color .2s;
+  }
+  .btn-primary{
+    background:var(--maroon-700); color:var(--white);
+    box-shadow:0 14px 28px -14px rgba(134,0,0,.55);
+  }
+  .btn-primary:hover{ background:var(--maroon-500); transform:translateY(-2px); }
+  .btn-primary:focus-visible, .btn-ghost:focus-visible, .option:focus-visible{
+    outline:2px solid var(--maroon-700); outline-offset:3px;
+  }
+  .btn-ghost{
+    background:transparent; color:var(--navy-900);
+    border:1px solid var(--navy-200);
+  }
+  .btn-ghost:hover{ border-color:var(--maroon-700); color:var(--maroon-700); }
+
+  .btn-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+  .btn-row .btn{ flex:1 1 180px; }
+
+  .progress-wrap{ margin-bottom:26px; }
+  .progress-meta{
+    display:flex; justify-content:space-between;
+    font-size:12.5px; color:var(--muted);
+    letter-spacing:.06em; margin-bottom:8px;
+  }
+  .progress-track{ height:6px; border-radius:99px; background:var(--ice-100); overflow:hidden; }
+  .progress-fill{
+    height:100%; border-radius:99px;
+    background:linear-gradient(90deg, var(--maroon-700), var(--navy-900));
+    transition:width .5s var(--ease);
+  }
+
+  .q-text{
+    font-family:'Aref Ruqaa', serif;
+    font-size:clamp(20px, 3.2vw, 25px);
+    line-height:1.6; margin:0 0 22px; color:var(--navy-900);
+  }
+
+  .options{ display:flex; flex-direction:column; gap:11px; list-style:none; padding:0; margin:0; }
+  .option{
+    display:block; width:100%; text-align:start;
+    background:var(--ice-050);
+    border:1px solid var(--navy-200);
+    color:var(--navy-700);
+    border-radius:11px; padding:15px 18px;
+    font-family:'Cairo', sans-serif; font-size:15px; line-height:1.65;
+    cursor:pointer;
+    transition:border-color .2s, background .2s, transform .15s;
+  }
+  .option:hover{ border-color:var(--maroon-700); background:var(--maroon-100); transform:translateX(-3px); }
+  .option.chosen{
+    border-color:var(--maroon-700);
+    background:var(--maroon-100);
+    color:var(--maroon-700);
+    font-weight:700;
+  }
+
+  /* result */
+  .seal{
+    width:120px; height:120px; margin:0 auto 20px;
+    position:relative; display:flex; align-items:center; justify-content:center;
+    animation:forge .8s var(--ease);
+  }
+  @keyframes forge{
+    0%{ opacity:0; transform:scale(.45) rotate(-10deg); }
+    65%{ opacity:1; transform:scale(1.07) rotate(2deg); }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+  .seal svg.ring{ position:absolute; inset:0; width:100%; height:100%; }
+  .seal .emoji{ font-size:44px; position:relative; z-index:1; }
+
+  .res-eyebrow{ text-align:center; color:var(--muted); font-size:13px; letter-spacing:.16em; margin-bottom:6px; }
+  h2.res-title{
+    font-family:'Aref Ruqaa', serif; text-align:center;
+    font-size:clamp(24px, 4.6vw, 32px); margin:0 0 18px;
+  }
+  .res-desc{
+    text-align:center; line-height:2; color:var(--navy-700);
+    font-size:15.5px; max-width:48ch; margin:0 auto 8px;
+  }
+
+  .toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--navy-900); color:var(--white);
+    border:1px solid var(--maroon-700);
+    padding:12px 22px; border-radius:10px;
+    font-size:14px; opacity:0; pointer-events:none;
+    transition:opacity .3s, transform .3s; z-index:50;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .hairline{
+    border:none; height:1px;
+    background:linear-gradient(90deg, transparent, var(--navy-200), transparent);
+    margin:22px 0;
+  }
+  .footnote{ text-align:center; color:var(--muted); font-size:12px; margin-top:18px; }
+
+  @media (max-width:480px){
+    .panel{ padding:24px 18px; border-radius:14px; }
+    .btn-row{ flex-direction:column; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001s !important; transition-duration:.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="brandmark">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="6.5"/><path d="M8.5 14.5 7 22l5-2.7 5 2.7-1.5-7.5"/></svg>
+    <span>فرز 4026</span>
+  </div>
+
+  <div class="panel">
+
+    <!-- ===================== HERO ===================== -->
+    <section id="screen-hero" class="screen active">
+      <div class="eyebrow">سجلّ الفرز · مجموعة الأصدقاء</div>
+      <h1 class="title">اكتشف شخصيتك في فرز 4026</h1>
+      <div class="divider"></div>
+      <p class="lede">
+        أربعة أسئلة سريعة تكشف من أنت فعلاً وسط أصدقائك.
+        لا إجابات صحيحة أو خاطئة هنا.. فقط أنت كما يراك الجميع.
+      </p>
+      <button class="btn btn-primary" onclick="startQuiz()">ابدأ الفرز</button>
+      <button class="btn btn-ghost" style="margin-top:12px" onclick="shareQuiz()">شارك الاختبار مع أصدقائك</button>
+      <p class="footnote">٤ أسئلة · أقل من دقيقتين</p>
+    </section>
+
+    <!-- ===================== QUIZ ===================== -->
+    <section id="screen-quiz" class="screen">
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="qLabel">السؤال ١ من ٤</span>
+          <span id="qPercent">٢٥٪</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+      </div>
+      <p class="q-text" id="qText"></p>
+      <ul class="options" id="qOptions"></ul>
+    </section>
+
+    <!-- ===================== RESULT ===================== -->
+    <section id="screen-result" class="screen">
+      <div class="seal" id="seal"></div>
+      <div class="res-eyebrow">نتيجة الفرز</div>
+      <h2 class="res-title" id="resTitle"></h2>
+      <hr class="hairline">
+      <p class="res-desc" id="resDesc"></p>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="shareResult()">شارك نتيجتك</button>
+        <button class="btn btn-ghost" onclick="restartQuiz()">أعد الفرز</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ---------- content (same questions / results as the original quiz) ---------- */
+  const questions = [
+    {
+      text: "كيف تخطط لعطلة نهاية الأسبوع؟",
+      options: [
+        ["ESTJ","أضع جدولاً دقيقاً، وأتأكد من أن الجميع يعرف دوره."],
+        ["INFP","لا أخطط، أبقى في غرفتي أو أعتمد على غيري ليقرر."],
+        ["ISTP","أصلح شيئاً متعطلاً أو أمارس هواية بمفردي بهدوء."],
+        ["ENFP","أخرج مع الأصدقاء للقيام بشيء عفوي وممتع."],
+        ["ESTP","أذهب لصالة الرياضة لأستعرض عضلاتي."],
+        ["INTP","أنام.. العطلة والزمن مجرد أوهام لا تستحق الاستيقاظ."],
+        ["ISTJ","أبقى في المنزل لأوفر مالي، بروتيني المعتاد."],
+        ["ENTP","أقنع الجميع بفكرة جنونية، ثم ألغيها لأرى رد فعلهم!"]
+      ]
+    },
+    {
+      text: "شخص ما تعمد استفزازك وتجاوز حده، ما هي ردة فعلك؟",
+      options: [
+        ["ESTJ","أحاول حل المشكلة بعقلانية للوصول لحل وسط."],
+        ["INFP","أنطوي، لكن إن اقترب من أصدقائي سأتحول لوحش."],
+        ["ISTP","أنظر إليه ببرود وصمت قاتل حتى يشعر بالغباء."],
+        ["ENFP","أرد بكلمات لاذعة مستفزة أقلب بها الطاولة عليه."],
+        ["ESTP","ألجأ للغة الجسد والعنف فوراً."],
+        ["INTP","أضع سماعاتي وأتجاهله، الرد يستهلك طاقتي."],
+        ["ISTJ","أذكره بالقواعد وأغلق الباب في وجهه نهائياً."],
+        ["ENTP","أبتسم.. لقد بدأت اللعبة! سأستفزه بأسئلة منطقية حتى يجن."]
+      ]
+    },
+    {
+      text: "ما هو أسلوبك في اتخاذ القرارات المصيرية؟",
+      options: [
+        ["ESTJ","المنطق، الحقائق، ومصلحة العمل الجماعي."],
+        ["INFP","مشاعري، وما يمليه عليّ قلبي."],
+        ["ISTP","المنطق العملي.. ما هو الحل الأسرع والأكثر فعالية؟"],
+        ["ENFP","شغفي ومبادئي وحماية من أحبهم."],
+        ["ESTP","الاندفاع المطلق.. أفعل ما أريده ولا أهتم بالعواقب."],
+        ["INTP","أحلل القرار سياسياً وفلسفياً.. ثم لا أفعل شيئاً."],
+        ["ISTJ","الخيار الأكثر أماناً، الأقل تكلفة، والمضمون 100%."],
+        ["ENTP","الخيار الذي سيكسر القواعد ويفتح آفاقاً جديدة."]
+      ]
+    },
+    {
+      text: "كيف تتعامل مع المال والممتلكات؟",
+      options: [
+        ["ESTJ","أدير الموارد بحكمة لضمان استقرار الجميع."],
+        ["INFP","لا أهتم، أعتمد على عائلتي في تنظيم هذه الأمور."],
+        ["ISTP","أصرفه على أدواتي واحتياجاتي العملية فقط."],
+        ["ENFP","أصرفه بتبذير على نفسي ومن أحبهم.. الحياة تُعاش مرة!"],
+        ["ESTP","أشتري أشياء تجعلني أبدو الأقوى أمام الناس."],
+        ["INTP","المال فكرة سخيفة تفسد متعة الحياة."],
+        ["ISTJ","كل قرش محسوب. أنا لا أطلب شيئاً فلا تطلبوا مني."],
+        ["ENTP","أستثمره في مشروع غريب، أخسره كله، ثم أضحك."]
+      ]
+    }
+  ];
+
+  const results = {
+    ESTJ:{ title:"أنتِ الدكتورة نهاد", emoji:"📋", color:"#162a3a",
+      desc:"أنتِ القائدة العقلانية والمنظمة. يعتمد عليك الجميع في الأزمات لأنك توازنين بين المنطق ومراعاة الآخرين. أنتِ عمود الأساس في أي مكان تتواجدين فيه." },
+    INFP:{ title:"أنتِ المترجمة رانية", emoji:"🦋", color:"#860000",
+      desc:"أنتِ الروح الحساسة واللطيفة. تبدين هشة وتحبين مساحتك الآمنة، لكنك تخفين بداخلها بطلاً شجاعاً لا يتردد في التضحية لإنقاذ من يحب في اللحظات الحاسمة." },
+    ISTP:{ title:"أنت الرياضي مالك", emoji:"🔧", color:"#162a3a",
+      desc:"أنت المراقب الهادئ والذكي. لا تتحدث كثيراً، لكنك تقرأ الناس ببراعة وتعرف متى تتدخل. أنت شخص عملي، يمتلك أعصاباً من ثلج، ويمكن الاعتماد عليه دائماً." },
+    ENFP:{ title:"أنتِ الفنانة سارة", emoji:"🎨", color:"#860000",
+      desc:"أنتِ الدرع المخملي! شخصية مبدعة، مدللة قليلاً، وواثقة جداً. لسانك سلاح فتاك لمن يزعجك، لكن قلبك دافئ وتدافعين عن أصدقائك بشراسة الأسود." },
+    ESTP:{ title:"أنت أمين المندفع", emoji:"🦍", color:"#162a3a",
+      desc:"أنت تعتمد على القوة والاندفاع أكثر من العقل. تحب لفت الانتباه وتستصغر من حولك. تحتاج إلى تعلم أن القوة الحقيقية تكمن في الحكمة وليس في العضلات فقط!" },
+    INTP:{ title:"أنت الفيلسوف محمد", emoji:"🛌", color:"#860000",
+      desc:"أنت العقل المدبر الذي اختار التقاعد مبكراً! تفهم الحياة بعمق، لكنك تراها عبثية ولا تستحق الجهد. سريرك هو مملكتك، وصمتك هو ردك على تفاهات العالم." },
+    ISTJ:{ title:"أنت المحاسب أمين", emoji:"💰", color:"#162a3a",
+      desc:"أنت الحارس الصارم للموارد! حياتك عبارة عن نظام وروتين دقيق. قد يراك البعض بخيلاً أو منغلقاً، لكنك في الحقيقة تعتبر الاستقلالية والحدود سر الأمان في الحياة." },
+    ENTP:{ title:"أنت المحاور طارق", emoji:"🃏", color:"#860000",
+      desc:"أنت الجوكر المزعج وشرارة الفوضى! تمتلك ذكاءً حاداً وتكره الملل، لذلك تمضي وقتك في استفزاز أصدقائك وتجربة أفكار مجنونة عليهم. أنت تجعل حياتهم جحيماً ممتعاً." }
+  };
+
+  /* ---------- state ---------- */
+  let current = 0;
+  const scores = {};
+
+  function resetScores(){ Object.keys(results).forEach(k => scores[k] = 0); }
+
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function startQuiz(){
+    current = 0;
+    resetScores();
+    showScreen('screen-quiz');
+    renderQuestion();
+  }
+  function restartQuiz(){ startQuiz(); }
+
+  const arabicDigits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  function toArabicNum(n){ return String(n).split('').map(d => arabicDigits[d] ?? d).join(''); }
+
+  function renderQuestion(){
+    const q = questions[current];
+    document.getElementById('qLabel').textContent = `السؤال ${toArabicNum(current+1)} من ${toArabicNum(questions.length)}`;
+    document.getElementById('qPercent').textContent = `${toArabicNum(Math.round(((current+1)/questions.length)*100))}٪`;
+    document.getElementById('progressFill').style.width = ((current+1)/questions.length*100) + '%';
+    document.getElementById('qText').textContent = q.text;
+
+    const list = document.getElementById('qOptions');
+    list.innerHTML = '';
+    q.options.forEach(([code, text]) => {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'option';
+      btn.textContent = text;
+      btn.addEventListener('click', () => selectOption(btn, code));
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+  }
+
+  function selectOption(btn, code){
+    document.querySelectorAll('#qOptions .option').forEach(o => { o.disabled = true; o.classList.remove('chosen'); });
+    btn.classList.add('chosen');
+    scores[code]++;
+
+    setTimeout(() => {
+      current++;
+      if (current < questions.length){ renderQuestion(); }
+      else { renderResult(); }
+    }, 420);
+  }
+
+  function renderResult(){
+    let topCode = 'ENTP', topScore = -1;
+    Object.keys(scores).forEach(code => {
+      if (scores[code] > topScore){ topScore = scores[code]; topCode = code; }
+    });
+
+    const r = results[topCode];
+
+    document.getElementById('resTitle').textContent = r.title;
+    document.getElementById('resTitle').style.color = r.color;
+    document.getElementById('resDesc').textContent = r.desc;
+
+    const seal = document.getElementById('seal');
+    seal.innerHTML = `
+      <svg class="ring" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="${r.color}" stroke-width="1.4" opacity=".5"/>
+        <circle cx="60" cy="60" r="49" fill="none" stroke="${r.color}" stroke-width="1" stroke-dasharray="2 6" opacity=".8"/>
+        <circle cx="60" cy="60" r="41" fill="${r.color}" opacity=".08"/>
+      </svg>
+      <span class="emoji">${r.emoji}</span>
+    `;
+
+    document.body.dataset.result = topCode;
+    showScreen('screen-result');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* ---------- sharing ---------- */
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  async function copyLink(text){
+    try{ await navigator.clipboard.writeText(text); showToast('تم نسخ الرابط ✓'); }
+    catch(e){ showToast('تعذّر النسخ التلقائي — انسخ الرابط من الأعلى'); }
+  }
+
+  function shareQuiz(){
+    const url = window.location.href;
+    const payload = { title:'فرز 4026', text:'اكتشف شخصيتك في فرز 4026:', url };
+    if (navigator.share){ navigator.share(payload).catch(()=>{}); }
+    else { copyLink(url); }
+  }
+
+  function shareResult(){
+    const code = document.body.dataset.result;
+    const r = results[code];
+    const url = window.location.href;
+    const text = r ? `نتيجتي في فرز 4026: ${r.title} ${r.emoji}. جرّب الاختبار أنت أيضاً:` : 'جرّب اختبار فرز 4026:';
+    const payload = { title:'فرز 4026', text, url };
+    if (navigator.share){ navigator.share(payload).catch(()=>{}); }
+    else { copyLink(`${text} ${url}`); }
+  }
+</script>
+</body>
+</html>
